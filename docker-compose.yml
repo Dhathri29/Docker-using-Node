@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+    nodedocker:
+        image: node
+        command: bash -c "npm install && npm run dev"
+        ports:
+            - 3000:3000
+        working_dir: /nodedocker
+        volumes:
+            - ./:/nodedocker
+        environment:
+            MYSQL_HOST: mysql
+            MYSQL_USER: root
+            MYSQL_PASSWORD: password
+            MYSQL_DB: nodedockerdb
+
+    mysql:
+        image: mysql:5.7
+        volumes:
+            - mysql-data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: nodedockerdb
+
+volumes:
+    mysql-data:
